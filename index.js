@@ -23,6 +23,10 @@ app.use(function (req, res, next) {
   next();
 });
 
+const uploadRouter = require("./src/routes/upload");
+
+app.use("/upload", uploadRouter);
+
 const port = process.env.PORT || 6969;
 
 app.listen(port, () => {
