@@ -1,15 +1,17 @@
+require("dotenv").config();
+
 const Admin = require("../models/Admin");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 async function SignUp(req, res) {
+  const salt = bcrypt.genSaltSync(10);
   const { name, email, password, confirmPassword } = req.body;
   const admin = new Admin({
     name,
     email,
-    password: bcrypt.hashSync(password, 10),
+    password: bcrypt.hashSync(password, salt),
   });
-
   const isEmailValid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
     email
   );
@@ -19,7 +21,13 @@ async function SignUp(req, res) {
     );
   const isNameValid = /^[a-zA-Z ]{2,30}$/.test(name);
   const emailExists = await Admin.findOne({ email });
-  const passwordMatch = bcrypt.compareSync(password, confirmPassword);
+  const passwordMatch = password === confirmPassword;
+
+  if (!email || !password || !confirmPassword || !name) {
+    return res.status(400).json({
+      message: "Please fill all the fields",
+    });
+  }
 
   if (!isEmailValid) {
     return res.status(400).json({
@@ -49,7 +57,7 @@ async function SignUp(req, res) {
   }
 
   try {
-    // await admin.save();
+    await admin.save();
     res.status(201).json({
       message: "Admin created successfully",
       admin,
@@ -79,3 +87,8 @@ async function Login(req, res) {
     token,
   });
 }
+
+module.exports = {
+  SignUp, //line 5
+  Login, //line 62
+};
