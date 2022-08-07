@@ -29,10 +29,12 @@ app.use(function (req, res, next) {
 const uploadRouter = require("./src/routes/upload");
 const adminAuthRouter = require("./src/routes/AdminAuthRoute");
 const postRouter = require("./src/routes/PostRoute");
+const reviewRouter = require("./src/routes/ReviewRoute");
 
 app.use("/upload", uploadRouter);
 app.use("/admin", adminAuthRouter);
 app.use("/post", postRouter);
+app.use("/review", reviewRouter);
 
 const port = process.env.PORT || 6969;
 
