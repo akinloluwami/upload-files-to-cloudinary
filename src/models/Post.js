@@ -38,7 +38,8 @@ const PostSchema = new mongoose.Schema({
   },
   postId: {
     type: String,
-    required: true,
+    unique: true,
+    default: Date.now,
   },
 });
 
