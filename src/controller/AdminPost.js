@@ -182,4 +182,6 @@ async function Delete(req, res) {
 
 module.exports = {
   Create,
+  GetAll,
+  Delete,
 };
