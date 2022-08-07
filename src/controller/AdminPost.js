@@ -148,6 +148,38 @@ async function GetAll(req, res) {
   });
 }
 
+async function Delete(req, res) {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({
+      message: "You are not authorized to perform this action",
+    });
+  }
+  const tkn = req.headers.authorization.split(" ")[1];
+  const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+  if (!decoded) {
+    return res.status(401).json({
+      message: "You are not authorized to perform this action",
+    });
+  }
+  const { id } = req.params;
+  const post = await Post.findById(id);
+  if (!post) {
+    return res.status(404).json({
+      message: "Post not found",
+    });
+  }
+  if (post.adminId.toString() !== decoded.id) {
+    return res.status(401).json({
+      message: "You are not authorized to perform this action",
+    });
+  }
+  await Post.findByIdAndDelete(id);
+  res.status(200).json({
+    message: "Post deleted successfully",
+  });
+}
+
 module.exports = {
   Create,
 };
