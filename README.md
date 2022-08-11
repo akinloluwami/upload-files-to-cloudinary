@@ -19,7 +19,7 @@
   linkToTokenomics)
 
 * Get all posts
-  /post/all (Bearer token header)
+  /post/all 
 
 * Delete a post
   /post/delete/:id (Bearer token header)
@@ -33,4 +33,4 @@
   postId)
 
   - Get all reviews under a post
-    /review/all/:postId (Bearer token header)
+    /review/all/:postId

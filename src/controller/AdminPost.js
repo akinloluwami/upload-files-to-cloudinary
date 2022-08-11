@@ -128,24 +128,11 @@ async function Create(req, res) {
 }
 
 async function GetAll(req, res) {
-  const token = req.headers.authorization;
-  if (!token) {
-    return res.status(401).json({
-      message: "You are not authorized to perform this action",
-    });
-  }
-  const tkn = req.headers.authorization.split(" ")[1];
-  const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
-  if (!decoded) {
-    return res.status(401).json({
-      message: "You are not authorized to perform this action",
-    });
-  }
-  const posts = await Post.find({ adminId: decoded.id });
-  res.status(200).json({
-    message: "Posts fetched successfully",
-    posts,
-  });
+ const posts = await Post.find()
+ return res.status.json({
+  message: "Posts retrieved successfully",
+  posts
+ })
 }
 
 async function Delete(req, res) {
