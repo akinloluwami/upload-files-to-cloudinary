@@ -128,11 +128,11 @@ async function Create(req, res) {
 }
 
 async function GetAll(req, res) {
- const posts = await Post.find()
- return res.status.json({
-  message: "Posts retrieved successfully",
-  posts
- })
+  const posts = await Post.find();
+  res.status(200).json({
+    message: "Posts fetched successfully",
+    posts,
+  });
 }
 
 async function Delete(req, res) {
