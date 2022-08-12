@@ -23,6 +23,8 @@ async function GetAll(req, res) {
   });
 }
 
+
+
 module.exports = {
   Create,
   GetAll,

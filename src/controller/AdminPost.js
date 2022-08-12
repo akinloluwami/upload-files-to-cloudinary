@@ -167,6 +167,21 @@ async function Delete(req, res) {
   });
 }
 
+
+async function getSinglePost(req, res) {
+  const { postId } = req.params;
+  const post = await Post.findById( postId );
+  if(!post){
+    res.status(404).json({
+      error: "Post not found"
+    })
+  }
+  res.status(200).json({
+    message: "Reviews fetched successfully",
+    post,
+  });
+}
+
 module.exports = {
   Create,
   GetAll,
