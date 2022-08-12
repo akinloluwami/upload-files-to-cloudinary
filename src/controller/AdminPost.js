@@ -186,4 +186,5 @@ module.exports = {
   Create,
   GetAll,
   Delete,
+  getSinglePost
 };
