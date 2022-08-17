@@ -1,7 +1,7 @@
 const Review = require("../models/Review");
 
 async function Create(req, res) {
-  const { name, comment, rating, postId } = req.body;
+  const { name, comment, rating, postId } = req.query;
   const review = new Review({
     name,
     comment,
@@ -22,8 +22,6 @@ async function GetAll(req, res) {
     reviews,
   });
 }
-
-
 
 module.exports = {
   Create,
